@@ -1,6 +1,6 @@
-import tailwind from './tailwind.css?style';
 import base from './base.css?style';
+import unoStyle from 'unocss-inline/style';
 
 export const attachStyle = (node: ParentNode) => {
-  node.append(base, tailwind);
+  node.append(base.cloneNode(true), unoStyle.cloneNode(true));
 };

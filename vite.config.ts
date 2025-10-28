@@ -1,11 +1,13 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import monkey, { cdn } from 'vite-plugin-monkey';
-import tailwindcss from '@tailwindcss/vite';
+import unocss from 'unocss/vite';
+import unocssInline from 'unocss-inline';
 
 export default defineConfig({
   plugins: [
-    tailwindcss(),
+    unocss({ inspector: false }),
+    unocssInline(),
     vue(),
     monkey({
       entry: 'src/main.ts',

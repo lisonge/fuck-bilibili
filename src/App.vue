@@ -74,7 +74,14 @@ const handler = async () => {
     to=".fans-main-title"
     style="display: inline-flex; margin-left: 24px"
   >
-    <div @click="handler" class="cursor-pointer text-xl text-blue-400">
+    <div
+      @click="handler"
+      text-xl
+      cursor-pointer
+      transition-colors
+      text-blue-400
+      class="hover:text-blue-600"
+    >
       移除全部粉丝
     </div>
   </ShadowTeleport>
