@@ -1,3 +1,11 @@
-:host {
-  --a: 1px;
+svg,
+video,
+iframe {
+  display: block;
+}
+
+.SvgIcon {
+  overflow: hidden;
+  fill: currentColor;
+  height: var(--svg-h, 1em);
 }

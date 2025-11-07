@@ -1,22 +1,7 @@
-<script setup lang="ts">
+<script setup vapor lang="ts" generic>
 import ShadowTeleport from './components/ShadowTeleport.vue';
-
-const obj2url = (url: string | URL, query: any): string => {
-  const u = new URL(url, location.origin);
-  Object.entries(query).forEach(([k, v]) => {
-    if (v === undefined) return;
-    u.searchParams.set(k, String(v));
-  });
-  return u.toString();
-};
-const obj2usp = (obj: any): URLSearchParams => {
-  const usp = new URLSearchParams();
-  Object.entries(obj).forEach(([k, v]) => {
-    if (v === undefined) return;
-    usp.set(k, String(v));
-  });
-  return usp;
-};
+import SvgIcon from './components/SvgIcon.vue';
+import { useTask, obj2url, obj2usp } from './utils';
 
 interface FansItem {
   mid: number;
@@ -56,7 +41,8 @@ const removeFan = async (mid: number): Promise<void> => {
     }
   );
 };
-const handler = async () => {
+
+const handler = useTask(async () => {
   const users = await getFans();
   if (users.length === 0) {
     setTimeout(() => window.alert('没有粉丝了'));
@@ -65,24 +51,33 @@ const handler = async () => {
   for (const user of users) {
     await removeFan(user.mid);
   }
-  await new Promise((r) => setTimeout(r, 500));
-  location.reload();
-};
+  setTimeout(() => {
+    location.reload();
+  });
+});
 </script>
 <template>
   <ShadowTeleport
     to=".fans-main-title"
     style="display: inline-flex; margin-left: 24px"
   >
-    <div
-      @click="handler"
-      text-xl
-      cursor-pointer
-      transition-colors
-      text-blue-400
-      class="hover:text-blue-600"
-    >
-      移除全部粉丝
+    <div flex items-center gap-4px>
+      <SvgIcon
+        name="loading"
+        h-20px
+        transition-colors
+        :class="handler.loading ? `text-blue` : `text-transparent`"
+      />
+      <div
+        @click="handler.invoke"
+        text-xl
+        cursor-pointer
+        transition-colors
+        text-blue-400
+        class="hover:text-blue-600"
+      >
+        {{ handler.loading ? `移除中` : `移除全部粉丝` }}
+      </div>
     </div>
   </ShadowTeleport>
 </template>

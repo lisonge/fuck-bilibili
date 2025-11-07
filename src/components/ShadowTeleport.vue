@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import type { StyleValue } from 'vue';
 import {
   onMounted,
@@ -7,6 +7,7 @@ import {
   shallowRef,
   watchEffect,
 } from 'vue';
+import pkg from '../../package.json';
 import { attachStyle } from '../style';
 
 type IFalse<T> = T | false | null | undefined;
@@ -50,6 +51,7 @@ const removeDom = () => {
 const addDom = (t: HTMLElement) => {
   removeDom();
   const c = document.createElement('div');
+  c.dataset.name = pkg.name;
   const shadowRoot = t.appendChild(c).attachShadow({ mode: 'open' });
   attachStyle(shadowRoot);
   target.value = [t, c, shadowRoot];
