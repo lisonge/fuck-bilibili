@@ -4635,23 +4635,13 @@ function template(html, root) {
   const modules = Object.assign({
     "../assets/svg/loading.svg": __vite_glob_0_0
   });
-  const svgIconMap = (() => {
-    const domParser = new DOMParser();
+  const svgElMap = (() => {
     return Object.fromEntries(
-      Object.entries(modules).filter(([_, v]) => v.default.trim()).map(([k, v]) => [k.split("/").at(-1).split(".")[0], v.default]).map(([svgName, svgText]) => {
-        const symbolEl = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "symbol"
-        );
-        const svgEl = domParser.parseFromString(
-          svgText,
-          "image/svg+xml"
-        ).documentElement;
-        Array.from(svgEl.attributes).forEach((attr) => {
-          symbolEl.setAttributeNS(null, attr.name, attr.value);
-        });
-        symbolEl.innerHTML = svgEl.innerHTML;
-        return [svgName, symbolEl];
+      Object.entries(modules).map(([k, v]) => {
+        const svgName = k.split("/").at(-1).split(".")[0];
+        const t2 = document.createElement("template");
+        t2.innerHTML = v.default;
+        return [svgName, t2.content.firstChild];
       })
     );
   })();
@@ -4662,7 +4652,7 @@ function template(html, root) {
     },
     setup(__props) {
       const props = __props;
-      const svgEl = computed(() => svgIconMap[props.name]);
+      const svgEl = computed(() => svgElMap[props.name]);
       const actualEl = shallowRef();
       watchEffect(() => {
         const s = svgEl.value;
