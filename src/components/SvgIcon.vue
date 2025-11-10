@@ -7,27 +7,14 @@ const modules: Record<string, { default: string }> = import.meta.glob(
   }
 );
 
-const svgIconMap = (() => {
-  const domParser = new DOMParser();
+const svgElMap = (() => {
   return Object.fromEntries(
-    Object.entries(modules)
-      .filter(([_, v]) => v.default.trim())
-      .map(([k, v]) => [k.split('/').at(-1)!.split('.')[0], v.default])
-      .map(([svgName, svgText]) => {
-        const symbolEl = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'symbol'
-        );
-        const svgEl = domParser.parseFromString(
-          svgText,
-          'image/svg+xml'
-        ).documentElement;
-        Array.from(svgEl.attributes).forEach((attr) => {
-          symbolEl.setAttributeNS(null, attr.name, attr.value);
-        });
-        symbolEl.innerHTML = svgEl.innerHTML;
-        return [svgName, symbolEl];
-      })
+    Object.entries(modules).map(([k, v]) => {
+      const svgName = k.split('/').at(-1)!.split('.')[0];
+      const t = document.createElement('template');
+      t.innerHTML = v.default;
+      return [svgName, t.content.firstChild as SVGSymbolElement | null];
+    })
   );
 })();
 </script>
@@ -41,7 +28,7 @@ const props = withDefaults(
   {}
 );
 
-const svgEl = computed(() => svgIconMap[props.name]);
+const svgEl = computed(() => svgElMap[props.name]);
 const actualEl = shallowRef<SVGSVGElement>();
 watchEffect(() => {
   const s = svgEl.value;
