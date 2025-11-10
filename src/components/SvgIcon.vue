@@ -23,7 +23,7 @@ const svgIconMap = (() => {
           'image/svg+xml'
         ).documentElement;
         Array.from(svgEl.attributes).forEach((attr) => {
-          symbolEl.setAttributeNS(attr.namespaceURI, attr.name, attr.value);
+          symbolEl.setAttributeNS(null, attr.name, attr.value);
         });
         symbolEl.innerHTML = svgEl.innerHTML;
         return [svgName, symbolEl];
@@ -31,7 +31,6 @@ const svgIconMap = (() => {
   );
 })();
 </script>
-
 <script setup vapor lang="ts">
 import { computed, shallowRef, watchEffect } from 'vue';
 

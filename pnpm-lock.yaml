@@ -18,8 +18,8 @@ importers:
         specifier: 66.5.5
         version: 66.5.5(postcss@8.5.6)(vite@7.1.12(jiti@2.6.1)(lightningcss@1.30.1))
       unocss-inline:
-        specifier: 0.1.1
-        version: 0.1.1(vite@7.1.12(jiti@2.6.1)(lightningcss@1.30.1))
+        specifier: 0.1.3
+        version: 0.1.3(vite@7.1.12(jiti@2.6.1)(lightningcss@1.30.1))
       vite:
         specifier: 7.1.12
         version: 7.1.12(jiti@2.6.1)(lightningcss@1.30.1)
@@ -1005,8 +1005,8 @@ packages:
   unconfig@7.3.3:
     resolution: {integrity: sha512-QCkQoOnJF8L107gxfHL0uavn7WD9b3dpBcFX6HtfQYmjw2YzWxGuFQ0N0J6tE9oguCBJn9KOvfqYDCMPHIZrBA==}
 
-  unocss-inline@0.1.1:
-    resolution: {integrity: sha512-qUZFLioKSvq1wbQKb0/KbJzfS5ZKs0KSKqRC2yWS17mB6e7YtzzKqwzo54GJ9dbptLFso8ltTrgWLlMH83bqvQ==}
+  unocss-inline@0.1.3:
+    resolution: {integrity: sha512-Fn9YMN7qA3ZZ3w5+/6S8MrFBWGy2nKND7aJk2T1Rvy18tqFFx+zgRjrhq7REkjejdYgPLiDnrOB5aKHbqNybEA==}
     peerDependencies:
       vite: '*'
     peerDependenciesMeta:
@@ -2052,7 +2052,7 @@ snapshots:
       jiti: 2.6.1
       quansync: 0.2.11
 
-  unocss-inline@0.1.1(vite@7.1.12(jiti@2.6.1)(lightningcss@1.30.1)):
+  unocss-inline@0.1.3(vite@7.1.12(jiti@2.6.1)(lightningcss@1.30.1)):
     dependencies:
       acorn-walk: 8.3.4
       htmlparser2: 10.0.0

@@ -4648,7 +4648,7 @@ function template(html, root) {
           "image/svg+xml"
         ).documentElement;
         Array.from(svgEl.attributes).forEach((attr) => {
-          symbolEl.setAttributeNS(attr.namespaceURI, attr.name, attr.value);
+          symbolEl.setAttributeNS(null, attr.name, attr.value);
         });
         symbolEl.innerHTML = svgEl.innerHTML;
         return [svgName, symbolEl];
@@ -4724,27 +4724,27 @@ function template(html, root) {
       }
     };
   };
+  const obj2url = (url, query) => {
+    const u = new URL(url, location.origin);
+    Object.entries(query).forEach(([k, v]) => {
+      if (v === void 0) return;
+      u.searchParams.set(k, String(v));
+    });
+    return u.toString();
+  };
+  const obj2usp = (obj) => {
+    const usp = new URLSearchParams();
+    Object.entries(obj).forEach(([k, v]) => {
+      if (v === void 0) return;
+      usp.set(k, String(v));
+    });
+    return usp;
+  };
   const t0 = template('<div flex items-center gap-4px><div text-xl cursor-pointer transition-colors text-blue-400 class="hover:text-blue-600"> </div></div>');
   delegateEvents("click");
   const _sfc_main = defineVaporComponent({
     __name: "App",
     setup(__props) {
-      const obj2url = (url, query) => {
-        const u = new URL(url, location.origin);
-        Object.entries(query).forEach(([k, v]) => {
-          if (v === void 0) return;
-          u.searchParams.set(k, String(v));
-        });
-        return u.toString();
-      };
-      const obj2usp = (obj) => {
-        const usp = new URLSearchParams();
-        Object.entries(obj).forEach(([k, v]) => {
-          if (v === void 0) return;
-          usp.set(k, String(v));
-        });
-        return usp;
-      };
       const getFans = async () => {
         return fetch(
           obj2url(
